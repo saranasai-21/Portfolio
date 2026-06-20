@@ -132,13 +132,7 @@ export default function Contact() {
             className="lg:col-span-5 flex flex-col justify-between"
           >
             <div className="flex flex-col gap-6">
-              <h3 className="text-xl sm:text-2xl font-semibold tracking-tight">
-                Let&apos;s build something intelligent.
-              </h3>
-              <p className="text-text-muted leading-relaxed text-sm sm:text-base">
-                Whether you want to discuss full-time roles, contract AI systems design, RAG pipelines, or quantization workloads — drop a message.
-              </p>
-              
+
               <div className="flex items-center gap-2 px-3 py-1 rounded-full border border-card-border bg-card-bg/50 max-w-fit text-[10px] font-mono text-accent">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
                 Response time: &lt;24 hours

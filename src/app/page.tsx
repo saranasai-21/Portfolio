@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import BackgroundEffect from '../components/ui/BackgroundEffect';
-import CustomCursor from '../components/ui/CustomCursor';
 import LoadingScreen from '../components/ui/LoadingScreen';
 import Hero from '../components/Hero';
 import About from '../components/About';
@@ -13,9 +12,6 @@ import Skills from '../components/Skills';
 import Projects from '../components/Projects';
 import Experience from '../components/Experience';
 import Certifications from '../components/Certifications';
-import GithubStats from '../components/GithubStats';
-import Testimonials from '../components/Testimonials';
-import Blog from '../components/Blog';
 import Contact from '../components/Contact';
 
 export default function Home() {
@@ -39,7 +35,6 @@ export default function Home() {
     <>
       {/* Visual background elements */}
       <BackgroundEffect />
-      <CustomCursor />
 
       {/* Intro loading animation */}
       <AnimatePresence mode="wait">
@@ -66,9 +61,6 @@ export default function Home() {
             <Projects />
             <Experience />
             <Certifications />
-            <GithubStats />
-            <Testimonials />
-            <Blog />
             <Contact />
           </main>
 
