@@ -133,11 +133,21 @@
 
   var observerOptions = {
     root: null,
-    rootMargin: '0px',
-    threshold: 0.3
+    rootMargin: '-75px 0px -75% 0px',
+    threshold: 0
   };
 
   var observer = new IntersectionObserver(function (entries) {
+    var isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50;
+    if (isAtBottom) {
+      for (var key in navLinks) {
+        if (navLinks[key]) {
+          navLinks[key].classList.toggle('active', key === 'links');
+        }
+      }
+      return;
+    }
+
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
         var id = entry.target.id;
@@ -153,6 +163,17 @@
 
   sections.forEach(function (section) {
     observer.observe(section);
+  });
+
+  window.addEventListener('scroll', function () {
+    var isAtBottom = (window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 50;
+    if (isAtBottom) {
+      for (var key in navLinks) {
+        if (navLinks[key]) {
+          navLinks[key].classList.toggle('active', key === 'links');
+        }
+      }
+    }
   });
 
 
