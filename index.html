@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarana Sai Bagadi</title>
+  <meta name="description" content="Sarana Sai Bagadi — AI/ML Engineer building and deploying systems for real data problems." />
+  <meta property="og:title" content="Sarana Sai Bagadi — AI/ML Engineer" />
+  <meta property="og:description" content="Entry-level AI/ML Engineer building agentic systems, RAG pipelines, computer vision, and forecasting engines." />
+  <meta property="og:type" content="website" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Sarana Sai Bagadi" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!--
+    System bar. Not a navigation header.
+    Modelled after macOS menu bar and Linear's top bar.
+    Left: live local clock. Center: section anchors. Right: one-word status.
+    The only persistent chrome on the page.
+  -->
+  <div class="sysbar" role="navigation" aria-label="Site navigation">
+
+    <div class="sysbar-clock" aria-label="Local time">
+      <time class="sysbar-time" id="clock-time" datetime="">—</time>
+      <span class="sysbar-sep" aria-hidden="true">·</span>
+      <span class="sysbar-date" id="clock-date">—</span>
+      <span class="sysbar-sep" aria-hidden="true">·</span>
+      <span class="sysbar-tz">IST</span>
+    </div>
+
+    <nav class="sysbar-nav" aria-label="Page sections">
+      <a href="#opinion"     class="sysbar-link" id="nav-opinion">Opinion</a>
+      <a href="#systems"     class="sysbar-link" id="nav-systems">Systems</a>
+      <a href="#work"        class="sysbar-link" id="nav-work">Work</a>
+      <a href="#experiments" class="sysbar-link" id="nav-experiments">Experiments</a>
+      <a href="#links"       class="sysbar-link" id="nav-links">Links</a>
+    </nav>
+
+    <div class="sysbar-status" aria-label="Current status">
+      <span class="sysbar-dot" aria-hidden="true">●</span>
+      <span class="sysbar-status-text">Building</span>
+    </div>
+
+  </div>
+
+  <main class="page">
+
+    <!--
+      Landing. Not a hero section.
+      70% statement, 30% notebook. No call to action.
+      Should feel like you walked into someone's workspace mid-session.
+    -->
+    <section class="land" aria-label="Introduction">
+      <div class="land-inner">
+
+        <div class="land-text">
+          <h1 class="land-h1">I build AI systems.</h1>
+          <p class="land-h2">Mostly deployment, data, and experimentation.</p>
+          <p class="land-p">
+            Entry-level but not entry-effort. I care about the gap between a working model
+            and a working product — inference latency, retrieval precision, evaluation
+            quality, what actually breaks in production.
+            Based in India. Open to what's interesting.
+          </p>
+        </div>
+
+        <aside class="land-notebook" aria-label="What I'm working on">
+          <div class="nb-block">
+            <p class="nb-label">Currently</p>
+            <ul class="nb-list" role="list">
+              <li>→ Agentic Analytics</li>
+              <li>→ vLLM Serving Infra</li>
+              <li>→ LLM Evaluation (RAGAS)</li>
+            </ul>
+          </div>
+          <div class="nb-block">
+            <p class="nb-label">Reading</p>
+            <ul class="nb-list" role="list">
+              <li>→ "Attention Is All You Need"</li>
+              <li>→ LoRA & PEFT Methods</li>
+              <li>→ Mamba SSMs</li>
+            </ul>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ── Skills Ticker ── -->
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker-content">
+        <span>Python · PyTorch · LangChain · FastAPI · Docker · ONNX Runtime · Pinecone · XGBoost · Triton · MLflow · Prefect · SHAP · Redis · TimescaleDB · Groq · LLaMA-3 · Cohere · BGE-M3 · SMOTE · Optuna ·&nbsp;</span>
+        <span>Python · PyTorch · LangChain · FastAPI · Docker · ONNX Runtime · Pinecone · XGBoost · Triton · MLflow · Prefect · SHAP · Redis · TimescaleDB · Groq · LLaMA-3 · Cohere · BGE-M3 · SMOTE · Optuna ·&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- ── Interactive Systems Console ── -->
+    <section class="console-section" id="console" aria-label="Interactive Systems Console">
+      <div class="console-header">
+        <div class="console-title">
+          <span class="console-dot green" id="console-status-dot"></span>
+          <span class="console-title-text" id="console-title">SYS_TELEMETRY // agentic_sql.log</span>
+        </div>
+        <div class="console-actions">
+          <button class="console-btn" id="run-btn" aria-label="Execute request simulation">Execute Trace</button>
+        </div>
+      </div>
+      
+      <div class="console-tabs" role="tablist">
+        <button class="console-tab active" role="tab" aria-selected="true" data-log="agentic" id="tab-agentic" tabindex="0">agentic_sql.log</button>
+        <button class="console-tab" role="tab" aria-selected="false" data-log="cnn" id="tab-cnn" tabindex="0">clinical_cnn.log</button>
+        <button class="console-tab" role="tab" aria-selected="false" data-log="forecast" id="tab-forecast" tabindex="0">grid_forecast.log</button>
+        <button class="console-tab" role="tab" aria-selected="false" data-log="rag" id="tab-rag" tabindex="0">hybrid_rag.log</button>
+        <button class="console-tab" role="tab" aria-selected="false" data-log="risk" id="tab-risk" tabindex="0">credit_risk.log</button>
+      </div>
+
+      <div class="console-body">
+        <div class="console-panel panel-payload">
+          <div class="panel-header">HTTP Request Payload (JSON)</div>
+          <pre class="panel-content"><code id="console-json" class="json-code">Loading request schema...</code></pre>
+        </div>
+        <div class="console-panel panel-terminal">
+          <div class="panel-header">Execution Logs</div>
+          <div class="panel-content terminal-log" id="console-log" role="log" aria-live="polite">
+            <div class="log-line text-dim">// Select a system and click "Execute Trace" to run simulation</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="console-footer">
+        <div class="metric-group">
+          <span class="m-label">Endpoint:</span>
+          <span class="m-val" id="m-endpoint">—</span>
+        </div>
+        <div class="metric-group">
+          <span class="m-label">Inference Latency:</span>
+          <span class="m-val" id="m-latency">—</span>
+        </div>
+        <div class="metric-group">
+          <span class="m-label">Execution Status:</span>
+          <span class="m-val" id="m-status">IDLE</span>
+        </div>
+        <div class="metric-group">
+          <span class="m-label">Core Tech:</span>
+          <span class="m-val" id="m-tech">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      Systems. The main content.
+      Each project is a full-width case study with: context, an architecture
+      diagram (inline SVG), tradeoffs, real metrics, and deployment notes.
+      Not cards. Not a portfolio grid. More like a system spec.
+    -->
+    <section class="systems" id="systems" aria-label="Projects and systems">
+
+      <!-- ── Project 1: Multi-Agent Text-to-SQL Engine ── -->
+      <article class="sys-entry" id="sys-agentic" aria-label="Multi-Agent Text-to-SQL &amp; Analytics Engine">
+
+        <header class="sys-hd">
+          <h2 class="sys-name">Multi-Agent Text-to-SQL &amp; Analytics Engine</h2>
+          <div class="sys-links">
+            <a href="https://github.com/SaranaSaiBagadi" class="sys-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#" class="sys-link" aria-disabled="true" title="Coming soon" style="pointer-events: none; opacity: 0.35;">Live Demo</a>
+          </div>
+        </header>
+
+        <div class="sys-body">
+          <div class="sys-text">
+
+            <div class="sys-field">
+              <p class="sf-label">Context</p>
+              <p class="sf-body">Enables non-technical teams to query secure enterprise relational databases in natural language. Translates English to executable SQL. Key engineering challenge: preventing LLM hallucinations from generating destructive queries or querying unauthorized schemas, and routing complex queries to specialized sub-agents.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Security &amp; Tradeoffs</p>
+              <p class="sf-body">Implements Abstract Syntax Tree (AST) validation to block non-SELECT statements and schema leaks before execution. Groq LLaMA-3 serves as the primary router due to low latency (sub-500ms), while query generation falls back to Claude-3 for multi-table joins. Query execution runs in an ephemeral, read-only Docker container to isolate potential execution vulnerabilities.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Evaluation &amp; Metrics</p>
+              <div class="sf-metrics">
+                <span class="sf-metric"><span class="sf-mval">94.8%</span> text-to-SQL accuracy</span>
+                <span class="sf-metric"><span class="sf-mval">&lt;1.8s</span> end-to-end latency</span>
+                <span class="sf-metric"><span class="sf-mval">Zero</span> sandbox escapes</span>
+              </div>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Infrastructure &amp; Deployment</p>
+              <p class="sf-body">Docker containers · FastAPI endpoints · SQLite sandbox (demo) · LangChain multi-agent execution graphs · LangSmith telemetry.</p>
+            </div>
+
+          </div>
+
+          <figure class="sys-diag" aria-label="Architecture diagram">
+            <figcaption class="diag-cap">Architecture Diagram // Multi-Agent Pipeline</figcaption>
+            <svg viewBox="0 0 360 148" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="18" width="60" height="26" fill="none" stroke="#355C4B" stroke-width="1"/>
+              <text x="34" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">User Query</text>
+
+              <line x1="64" y1="31" x2="72" y2="31" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="70,28 75,31 70,34" fill="#AAAAAA"/>
+
+              <rect x="75" y="18" width="68" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="109" y="31" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Agent Router</text>
+              <text x="109" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">LLaMA 3 (Groq)</text>
+
+              <line x1="143" y1="31" x2="151" y2="31" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="149,28 154,31 149,34" fill="#AAAAAA"/>
+
+              <rect x="154" y="18" width="70" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="189" y="31" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">SQL Gen</text>
+              <text x="189" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">Schema grounded</text>
+
+              <line x1="224" y1="31" x2="232" y2="31" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="230,28 235,31 230,34" fill="#AAAAAA"/>
+
+              <rect x="235" y="18" width="70" height="26" fill="#EEF5F1" stroke="#355C4B" stroke-width="1"/>
+              <text x="270" y="31" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616" font-weight="bold">AST Checker</text>
+              <text x="270" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#355C4B">Validation</text>
+
+              <line x1="270" y1="44" x2="270" y2="60" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="267,58 270,63 273,58" fill="#AAAAAA"/>
+
+              <rect x="235" y="60" width="70" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="270" y="73" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Docker Sandbox</text>
+              <text x="270" y="83" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">Read-Only SQL</text>
+
+              <line x1="235" y1="73" x2="227" y2="73" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="230,70 225,73 230,76" fill="#AAAAAA"/>
+
+              <rect x="154" y="60" width="70" height="26" fill="none" stroke="#355C4B" stroke-width="1"/>
+              <text x="189" y="76" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">JSON Output</text>
+
+              <text x="4" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#BBBBBB">stack:</text>
+              <text x="34" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#999999">Docker · LangChain · LangSmith · FastAPI · SQLite · Groq · LLaMA-3</text>
+            </svg>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ── Project 2: Clinical Screening CNN Pipeline ── -->
+      <article class="sys-entry" id="sys-pneumonia" aria-label="Clinical Screening CNN Pipeline — Abnormal Chest X-Ray">
+
+        <header class="sys-hd">
+          <h2 class="sys-name">Clinical Screening CNN Pipeline</h2>
+          <div class="sys-links">
+            <a href="https://github.com/SaranaSaiBagadi" class="sys-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#" class="sys-link" aria-disabled="true" title="Coming soon" style="pointer-events: none; opacity: 0.35;">Model Card</a>
+          </div>
+        </header>
+
+        <div class="sys-body">
+          <div class="sys-text">
+
+            <div class="sys-field">
+              <p class="sf-label">Context</p>
+              <p class="sf-body">A computer vision pipeline engineered to scan chest X-rays and automatically flag critical pneumonia cases for priority triage. Designed to reduce patient queue times in resource-constrained clinics. In clinical screening, a false negative is lethal, making high sensitivity (recall) the primary optimization objective.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Optimizations &amp; Tradeoffs</p>
+              <p class="sf-body">Addressed heavy class imbalance (normal vs. pneumonia) using focal weighted-loss vectors in training rather than synthetic oversampling. Compiled and quantized the ResNet-50 backbone to INT8 using ONNX Runtime. This traded a negligible 0.15% classification score for a massive 4.2x speedup, making edge CPU inference feasible.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Evaluation &amp; Metrics</p>
+              <div class="sf-metrics">
+                <span class="sf-metric"><span class="sf-mval">96.1%</span> clinical recall (sensitivity)</span>
+                <span class="sf-metric"><span class="sf-mval">94.2%</span> accuracy</span>
+                <span class="sf-metric"><span class="sf-mval">12ms</span> ONNX CPU latency</span>
+              </div>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Infrastructure &amp; Deployment</p>
+              <p class="sf-body">Triton Inference Server · Docker · ONNX Runtime CPU execution · Grad-CAM feature localization layers · Prometheus drift monitoring.</p>
+            </div>
+
+          </div>
+
+          <figure class="sys-diag" aria-label="Architecture diagram">
+            <figcaption class="diag-cap">Architecture Diagram // Edge Triton Deployment</figcaption>
+            <svg viewBox="0 0 360 148" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="28" width="60" height="26" fill="none" stroke="#355C4B" stroke-width="1"/>
+              <text x="34" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">X-Ray Image</text>
+
+              <line x1="64" y1="41" x2="72" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="70,38 75,41 70,44" fill="#AAAAAA"/>
+
+              <rect x="72" y="28" width="68" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="106" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Preprocessing</text>
+              <text x="106" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">normalization</text>
+
+              <line x1="140" y1="41" x2="148" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="146,38 151,41 146,44" fill="#AAAAAA"/>
+
+              <rect x="148" y="22" width="80" height="38" fill="#EEF5F1" stroke="#355C4B" stroke-width="1"/>
+              <text x="188" y="35" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616" font-weight="bold">Triton Server</text>
+              <text x="188" y="45" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#355C4B">ResNet50 ONNX (INT8)</text>
+              <text x="188" y="54" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">CPU Quantized</text>
+
+              <line x1="228" y1="41" x2="236" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="234,38 239,41 234,44" fill="#AAAAAA"/>
+
+              <rect x="236" y="28" width="70" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="271" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Grad-CAM</text>
+              <text x="271" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">localization</text>
+
+              <line x1="306" y1="41" x2="314" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="312,38 317,41 312,44" fill="#AAAAAA"/>
+
+              <rect x="314" y="28" width="42" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="335" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Triage API</text>
+
+              <text x="4" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#BBBBBB">stack:</text>
+              <text x="34" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#999999">Triton Server · ONNX Runtime · OpenCV · PyTorch · Docker · Prometheus</text>
+            </svg>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ── Project 3: Energy Grid Demand Forecasting Engine ── -->
+      <article class="sys-entry" id="sys-forecasting" aria-label="Energy Grid Demand Forecasting Engine">
+
+        <header class="sys-hd">
+          <h2 class="sys-name">Energy Grid Demand Forecasting Engine</h2>
+          <div class="sys-links">
+            <a href="https://github.com/SaranaSaiBagadi" class="sys-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#" class="sys-link" aria-disabled="true" title="Coming soon" style="pointer-events: none; opacity: 0.35;">API Spec</a>
+          </div>
+        </header>
+
+        <div class="sys-body">
+          <div class="sys-text">
+
+            <div class="sys-field">
+              <p class="sf-label">Context</p>
+              <p class="sf-body">Predicts electricity load on regional grids at 30-minute intervals up to 72 hours in advance, allowing grid operators to optimize power plant output and prevent blackouts. Moving from simple point predictions to robust risk bounds was essential for operational deployment.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">System Design &amp; Conformal Prediction</p>
+              <p class="sf-body">Ensembles statistical baselines (Prophet/ARIMA) for long-term seasonality with deep learning (LSTM) and boosting (XGBoost) models to capture non-linear, weather-driven residual spikes. Rather than raw point forecasts, the system implements Conformal Prediction methods, guaranteeing a mathematically sound 95% confidence interval boundaries for load planning.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Evaluation &amp; Metrics</p>
+              <div class="sf-metrics">
+                <span class="sf-metric"><span class="sf-mval">2.8%</span> MAPE (Mean Absolute % Error)</span>
+                <span class="sf-metric"><span class="sf-mval">95%</span> Conformal Coverage rate</span>
+                <span class="sf-metric"><span class="sf-mval">72h</span> forecast horizon</span>
+              </div>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Infrastructure &amp; Deployment</p>
+              <p class="sf-body">FastAPI service · TimescaleDB time-series database · Prefect workflow orchestration · MLflow model registry · PyTorch &amp; XGBoost.</p>
+            </div>
+
+          </div>
+
+          <figure class="sys-diag" aria-label="Architecture diagram">
+            <figcaption class="diag-cap">Architecture Diagram // Scheduled Forecasting Pipeline</figcaption>
+            <svg viewBox="0 0 360 148" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="28" width="56" height="26" fill="none" stroke="#355C4B" stroke-width="1"/>
+              <text x="32" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Grid Telemetry</text>
+
+              <line x1="60" y1="41" x2="68" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="66,38 71,41 66,44" fill="#AAAAAA"/>
+
+              <rect x="68" y="28" width="60" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="98" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">TimescaleDB</text>
+              <text x="98" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">hourly ingest</text>
+
+              <line x1="128" y1="41" x2="136" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="134,38 139,41 134,44" fill="#AAAAAA"/>
+
+              <rect x="136" y="22" width="76" height="38" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="174" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Prefect Engine</text>
+              <text x="174" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">DAG Pipeline</text>
+              <text x="174" y="53" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">runs MLflow pull</text>
+
+              <line x1="212" y1="41" x2="220" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="218,38 223,41 218,44" fill="#AAAAAA"/>
+
+              <rect x="220" y="28" width="74" height="26" fill="#EEF5F1" stroke="#355C4B" stroke-width="1"/>
+              <text x="257" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616" font-weight="bold">Conformal Predict</text>
+              <text x="257" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#355C4B">95% Risk Bounds</text>
+
+              <line x1="294" y1="41" x2="302" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="300,38 305,41 300,44" fill="#AAAAAA"/>
+
+              <rect x="302" y="28" width="54" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="329" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">FastAPI</text>
+
+              <text x="4" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#BBBBBB">stack:</text>
+              <text x="34" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#999999">TimescaleDB · Prefect · MLflow · PyTorch · XGBoost · Scikit-Learn · FastAPI</text>
+            </svg>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ── Project 4: Enterprise Hybrid-Search RAG Pipeline ── -->
+      <article class="sys-entry" id="sys-rag" aria-label="Enterprise Hybrid-Search RAG Pipeline">
+
+        <header class="sys-hd">
+          <h2 class="sys-name">Enterprise Hybrid-Search RAG Pipeline</h2>
+          <div class="sys-links">
+            <a href="https://github.com/SaranaSaiBagadi" class="sys-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#" class="sys-link" aria-disabled="true" title="Coming soon" style="pointer-events: none; opacity: 0.35;">Architecture Spec</a>
+          </div>
+        </header>
+
+        <div class="sys-body">
+          <div class="sys-text">
+
+            <div class="sys-field">
+              <p class="sf-label">Context</p>
+              <p class="sf-body">A question-answering pipeline built for dense engineering codebases and API documentation. Traditional semantic vector search fails on exact lexical hits like code symbols or logs. This engine couples semantic vectors with sparse token search to achieve production-grade retrieval precision.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Optimizations &amp; Latency Caching</p>
+              <p class="sf-body">Implements hybrid search (dense BGE-M3 + sparse BM25) fused using Reciprocal Rank Fusion (RRF) and re-ranked using Cohere Rerank v3. To prevent expensive, repetitive LLM calls, a local Redis-based semantic cache (GPTCache) computes cosine similarity of incoming query embeddings, serving cache matches in sub-80ms while cutting API usage costs by 32%.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Evaluation &amp; Metrics</p>
+              <div class="sf-metrics">
+                <span class="sf-metric"><span class="sf-mval">91.2%</span> retrieval precision (RRF)</span>
+                <span class="sf-metric"><span class="sf-mval">32%</span> API token cost savings</span>
+                <span class="sf-metric"><span class="sf-mval">&lt;80ms</span> semantic cache hit latency</span>
+              </div>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Infrastructure &amp; Deployment</p>
+              <p class="sf-body">Pinecone vector database · Redis (GPTCache) · Cohere Rerank API · FastAPI · LangChain validation framework.</p>
+            </div>
+
+          </div>
+
+          <figure class="sys-diag" aria-label="Architecture diagram">
+            <figcaption class="diag-cap">Architecture Diagram // Hybrid Query Pipeline</figcaption>
+            <svg viewBox="0 0 360 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="28" width="50" height="26" fill="none" stroke="#355C4B" stroke-width="1"/>
+              <text x="29" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Query Input</text>
+
+              <line x1="54" y1="41" x2="62" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="60,38 65,41 60,44" fill="#AAAAAA"/>
+
+              <rect x="62" y="28" width="66" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="95" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">GPTCache (Redis)</text>
+              <text x="95" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">cosine similarity</text>
+
+              <line x1="128" y1="41" x2="136" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="134,38 139,41 134,44" fill="#AAAAAA"/>
+              <text x="132" y="35" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">miss</text>
+
+              <rect x="136" y="22" width="76" height="38" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="174" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Hybrid Search</text>
+              <text x="174" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">BGE-M3 + BM25</text>
+              <text x="174" y="53" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">RRF Fusion</text>
+
+              <line x1="212" y1="41" x2="220" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="218,38 223,41 218,44" fill="#AAAAAA"/>
+
+              <rect x="220" y="28" width="60" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="250" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Cohere Rerank</text>
+              <text x="250" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6" fill="#888888">top-k selection</text>
+
+              <line x1="280" y1="41" x2="288" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="286,38 291,41 286,44" fill="#AAAAAA"/>
+
+              <rect x="288" y="28" width="68" height="26" fill="#EEF5F1" stroke="#355C4B" stroke-width="1"/>
+              <text x="322" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616" font-weight="bold">LLM Synthesis</text>
+              <text x="322" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#355C4B">grounded response</text>
+
+              <line x1="95" y1="54" x2="95" y2="82" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="92,80 95,85 98,80" fill="#AAAAAA"/>
+              <text x="100" y="70" font-family="IBM Plex Mono, monospace" font-size="6" fill="#355C4B">hit (sub-80ms)</text>
+
+              <rect x="62" y="82" width="66" height="26" fill="#EEF5F1" stroke="#355C4B" stroke-width="1"/>
+              <text x="95" y="98" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Cached Result</text>
+
+              <text x="4" y="138" font-family="IBM Plex Mono, monospace" font-size="7" fill="#BBBBBB">stack:</text>
+              <text x="34" y="138" font-family="IBM Plex Mono, monospace" font-size="7" fill="#999999">Pinecone · Redis · GPTCache · Cohere Rerank · BGE-M3 · BM25 · LangChain · FastAPI</text>
+            </svg>
+          </figure>
+        </div>
+      </article>
+
+      <!-- ── Project 5: Real-time Credit Delinquency Risk Engine ── -->
+      <article class="sys-entry" id="sys-delinquency" aria-label="Real-time Credit Delinquency Risk Engine">
+
+        <header class="sys-hd">
+          <h2 class="sys-name">Real-time Credit Delinquency Risk Engine</h2>
+          <div class="sys-links">
+            <a href="https://github.com/SaranaSaiBagadi" class="sys-link" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="#" class="sys-link" aria-disabled="true" title="Coming soon" style="pointer-events: none; opacity: 0.35;">Deployment Dashboard</a>
+          </div>
+        </header>
+
+        <div class="sys-body">
+          <div class="sys-text">
+
+            <div class="sys-field">
+              <p class="sf-label">Context</p>
+              <p class="sf-body">Processes high-throughput transaction telemetry and account metadata to predict customer loan delinquency risks 30 days before a default event. Provides collections teams with early actionable risk warnings. Risk teams require local explanations for auditing, meaning raw model scores alone are insufficient.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Feature Engineering &amp; Explainability</p>
+              <p class="sf-body">Integrates a central Feast Feature Store to serve transactional aggregations with low latency (&lt;5ms). Solves extreme class imbalance by embedding SMOTE validation within localized cross-validation folds (avoiding data leakage). The model (XGBoost) calculates individual SHAP values in parallel during scoring, returning feature attribution JSONs alongside credit risk probabilities.</p>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Evaluation &amp; Metrics</p>
+              <div class="sf-metrics">
+                <span class="sf-metric"><span class="sf-mval">0.894</span> AUC-ROC</span>
+                <span class="sf-metric"><span class="sf-mval">&lt;25ms</span> API response latency</span>
+                <span class="sf-metric"><span class="sf-mval">30-day</span> foresight horizon</span>
+              </div>
+            </div>
+
+            <div class="sys-field">
+              <p class="sf-label">Infrastructure &amp; Deployment</p>
+              <p class="sf-body">FastAPI endpoints · Feast Feature Store · Redis online store · MLflow tracker · Prometheus monitoring Population Stability Index (PSI) and input distribution drift.</p>
+            </div>
+
+          </div>
+
+          <figure class="sys-diag" aria-label="Architecture diagram">
+            <figcaption class="diag-cap">Architecture Diagram // Feature Store &amp; Explainability</figcaption>
+            <svg viewBox="0 0 360 148" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="4" y="28" width="60" height="26" fill="none" stroke="#355C4B" stroke-width="1"/>
+              <text x="34" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Transactions</text>
+
+              <line x1="64" y1="41" x2="72" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="70,38 75,41 70,44" fill="#AAAAAA"/>
+
+              <rect x="72" y="28" width="68" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="106" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">Feast Store</text>
+              <text x="106" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">Redis backend</text>
+
+              <line x1="140" y1="41" x2="148" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="146,38 151,41 146,44" fill="#AAAAAA"/>
+
+              <rect x="148" y="22" width="76" height="38" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="186" y="34" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">XGBoost Engine</text>
+              <text x="186" y="44" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">Optuna tuned</text>
+              <text x="186" y="53" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">drift monitored</text>
+
+              <line x1="224" y1="41" x2="232" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="230,38 235,41 230,44" fill="#AAAAAA"/>
+
+              <rect x="232" y="28" width="62" height="26" fill="none" stroke="#161616" stroke-width="1"/>
+              <text x="263" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616">SHAP Explainer</text>
+              <text x="263" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#888888">explanations</text>
+
+              <line x1="294" y1="41" x2="302" y2="41" stroke="#AAAAAA" stroke-width="1"/>
+              <polygon points="300,38 305,41 300,44" fill="#AAAAAA"/>
+
+              <rect x="302" y="28" width="54" height="26" fill="#EEF5F1" stroke="#355C4B" stroke-width="1"/>
+              <text x="329" y="41" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="8" fill="#161616" font-weight="bold">API JSON</text>
+              <text x="329" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="6.5" fill="#355C4B">Score + SHAP</text>
+
+              <text x="4" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#BBBBBB">stack:</text>
+              <text x="34" y="126" font-family="IBM Plex Mono, monospace" font-size="7" fill="#999999">Feast · Redis · XGBoost · SHAP · Optuna · FastAPI · Prometheus · MLflow</text>
+            </svg>
+          </figure>
+        </div>
+      </article>
+
+    </section>
+
+    <!--
+      Work. One entry. Formatted as a short written account, not a timeline.
+      The left column anchors the when/where; the right explains what happened.
+    -->
+    <section class="work-section" id="work" aria-label="Work experience">
+
+      <div class="work-entry">
+        <div class="work-meta">
+          <p class="work-org">Edunet Foundation</p>
+          <p class="work-period">Jan – Mar 2025</p>
+        </div>
+        <div class="work-body">
+          <p class="work-role">AI/ML Engineer Intern</p>
+          <p class="work-desc">
+            Led development of a clinical computer vision pipeline for automated radiography triage. Delivered a ResNet-50-based classifier with 96.1% clinical recall. Built the inference optimization flow by quantizing the model to INT8 via ONNX Runtime, reducing edge CPU inference latency from 52ms to 12ms (a 4.2x speedup). Implemented a Triton Inference Server Docker deployment with Grad-CAM localization layers to provide explainability to clinical auditors.
+          </p>
+        </div>
+      </div>
+
+      <div class="work-entry">
+        <div class="work-meta">
+          <p class="work-org">Self-Directed</p>
+          <p class="work-period">2025 — Present</p>
+        </div>
+        <div class="work-body">
+          <p class="work-role">Ongoing Study</p>
+          <p class="work-desc">
+            Studying distributed ML serving (Ray, vLLM), LLM evaluation frameworks (RAGAS, DeepEval), and production MLOps on Kubernetes. Tracking applied AI research through Hugging Face papers and Ahead of AI newsletter.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!--
+      Opinion. This replaces a traditional About section.
+      Short engineering opinions. Large editorial type.
+      The goal is to read like something a person actually believes.
+    -->
+    <section class="opinion-section" id="opinion" aria-label="Engineering opinions">
+
+      <p class="opinion-stmt">Evaluations and guardrails are the main bottleneck in Applied AI, not model weights.</p>
+      <p class="opinion-stmt">Quantization and latency engineering are non-negotiable; local edge inference beats cloud dependencies.</p>
+      <p class="opinion-stmt">Semantic caching is the single most effective lever to reduce LLM latency and operating cost.</p>
+      <p class="opinion-stmt">A machine learning pipeline without automated data validation is silent data corruption waiting to happen.</p>
+      <p class="opinion-stmt">Explainability (SHAP, Grad-CAM) is a core product requirement, not an optional post-hoc debugger.</p>
+
+    </section>
+
+    <!--
+      Experiments. A research log of things I tried that didn't work as expected.
+      Honest about failure. Short entries. Kept rough on purpose.
+    -->
+    <section class="experiments-section" id="experiments" aria-label="Experiments and notes">
+
+      <div class="exp-grid">
+
+        <div class="exp-note" id="exp-1">
+          <p class="exp-date">[2025.03]</p>
+          <p class="exp-tried">Semantic chunk overlap vs fixed-size chunking for RAG</p>
+          <p class="exp-broke">Broke context across technical definitions when using naive character splitting. Model hallucinated on technical specifications.</p>
+          <p class="exp-changed">Switched to paragraph-level chunking with a 15% sliding overlap. Preserved sentence integrity and document hierarchies.</p>
+        </div>
+
+        <div class="exp-note" id="exp-2">
+          <p class="exp-date">[2025.02]</p>
+          <p class="exp-tried">SMOTE before train-test split on credit risk dataset</p>
+          <p class="exp-broke">Evaluation looked outstanding (99% recall). In reality, synthetic minority samples leaked from the training set into validation.</p>
+          <p class="exp-changed">Restructured pipeline to split folds first. Apply SMOTE strictly within training loops. Corrected evaluation to a realistic 89.4% AUC.</p>
+        </div>
+
+        <div class="exp-note" id="exp-3">
+          <p class="exp-date">[2025.01]</p>
+          <p class="exp-tried">Accuracy optimization for clinical pneumonia detection</p>
+          <p class="exp-broke">Model predicted pneumonia for almost all cases due to class imbalance, achieving 76% accuracy but zero diagnostic value.</p>
+          <p class="exp-changed">Rebuilt objective function around recall-weighted cross-entropy loss. Prioritized catching false negatives in patient triage.</p>
+        </div>
+
+        <div class="exp-note" id="exp-4">
+          <p class="exp-date">[2024.11]</p>
+          <p class="exp-tried">OpenAI API for the Text-to-SQL analytics engine</p>
+          <p class="exp-broke">API execution cost scaled linearly with schema size, resulting in ~$0.008 per query. Unfeasible for high-volume enterprise telemetry.</p>
+          <p class="exp-changed">Moved routing to local Groq LLaMA-3. Reduced query latency to sub-3s and lowered operational API expenses by 90%.</p>
+        </div>
+
+        <div class="exp-note" id="exp-5">
+          <p class="exp-date">[2024.09]</p>
+          <p class="exp-tried">Prophet point-forecasts for energy grid load planning</p>
+          <p class="exp-broke">Prophet missed sharp, non-linear spikes caused by sudden heatwaves, leading to costly energy under-provisioning risk.</p>
+          <p class="exp-changed">Ensembled Prophet baseline with XGBoost and LSTM residuals. Implemented Conformal Prediction to produce mathematically safe 95% risk bands.</p>
+        </div>
+
+        <div class="exp-note" id="exp-6">
+          <p class="exp-date">[2024.07]</p>
+          <p class="exp-tried">Fine-tuning a local model for domain-specific Q&amp;A</p>
+          <p class="exp-broke">Training times were high, and the model still hallucinated facts when asked about out-of-distribution corporate documents.</p>
+          <p class="exp-changed">Replaced with a retrieval-augmented generation (RAG) architecture. Fine-tuning should shape style, RAG should supply grounding.</p>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!--
+      Contact. Just links. No form, no widget, no buttons.
+    -->
+    <section class="links-section" id="links" aria-label="Contact">
+      <a href="mailto:saranasaibagadi@gmail.com"           class="clink" id="link-email">saranasaibagadi@gmail.com</a>
+      <a href="https://linkedin.com/in/sarana-sai-bagadi"  class="clink" id="link-linkedin"  target="_blank" rel="noopener noreferrer">linkedin.com/in/sarana-sai-bagadi</a>
+      <a href="https://github.com/SaranaSaiBagadi"         class="clink" id="link-github"   target="_blank" rel="noopener noreferrer">github.com/SaranaSaiBagadi</a>
+    </section>
+
+    <footer class="site-footer">
+      <span>// Built without templates. Sarana Sai Bagadi — 2025.</span>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
