@@ -46,30 +46,6 @@ export default function Certifications() {
       link: '#',
       icon: <ShieldCheck className="text-amber-500" size={20} />
     },
-    {
-      title: 'Applied Machine Learning',
-      issuer: 'Coursera / Stanford',
-      date: '2024',
-      credId: 'CRED-ML-3329',
-      link: '#',
-      icon: <Award className="text-red-500" size={20} />
-    },
-    {
-      title: 'Docker & Container Infrastructure',
-      issuer: 'Docker Academy',
-      date: '2024',
-      credId: 'CRED-DKR-7751',
-      link: '#',
-      icon: <CheckCircle2 className="text-cyan-500" size={20} />
-    },
-    {
-      title: 'Cloud Computing & MLOps Foundations',
-      issuer: 'Google Cloud Platform (GCP)',
-      date: '2024',
-      credId: 'CRED-GCP-8849',
-      link: '#',
-      icon: <ShieldCheck className="text-blue-400" size={20} />
-    }
   ];
 
   return (

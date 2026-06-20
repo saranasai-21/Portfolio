@@ -14,17 +14,6 @@ interface TimelineItem {
 export default function Experience() {
   const experiences: TimelineItem[] = [
     {
-      role: 'AI Developer & Systems Researcher',
-      org: 'Self-Directed Ongoing Study',
-      period: '2025 – Present',
-      desc: [
-        'Studying distributed model serving frameworks including Ray and vLLM for high-throughput serving infra.',
-        'Implementing LLM evaluation frameworks (RAGAS, DeepEval) to systematically quantify retrieval precision and generation toxicity.',
-        'Designing GitOps MLOps pipelines on local Kubernetes environments to monitor covariate drift and Population Stability Index (PSI).'
-      ],
-      tech: ['vLLM', 'Ray', 'RAGAS', 'DeepEval', 'Kubernetes', 'MLOps']
-    },
-    {
       role: 'AI/ML Engineer Intern',
       org: 'Edunet Foundation',
       period: 'Jan – Mar 2025',
@@ -35,17 +24,6 @@ export default function Experience() {
       ],
       tech: ['PyTorch', 'ONNX Runtime', 'Triton Server', 'Docker', 'Grad-CAM', 'OpenCV']
     },
-    {
-      role: 'Full Stack & Automation Developer',
-      org: 'Independent AI Engineering Projects',
-      period: '2024 – 2025',
-      desc: [
-        'Built a multi-agent text-to-SQL analytics compiler using LLaMA-3 (Groq) and LangChain multi-agent execution graphs.',
-        'Architected a hybrid-search RAG pipeline fusing BGE-M3 dense embeddings and BM25 sparse vectors, achieving 91.2% retrieval accuracy.',
-        'Integrated a local Redis semantic cache layer (GPTCache) to query duplicate contexts in sub-80ms, cutting LLM token costs by 32%.'
-      ],
-      tech: ['FastAPI', 'React', 'LangChain', 'Redis', 'Pinecone', 'SQLAlchemy']
-    }
   ];
 
   return (
